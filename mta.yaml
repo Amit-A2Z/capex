@@ -17,8 +17,7 @@ build-parameters:
       commands:
         - npm install --production
         - >-
-          bash -c "cds -v | grep 'cds-dk' || npm i --production --no-save
-          @sap/cds-dk @sap/mdk-tools"
+          bash -c "cds -v | grep 'cds-dk' || npm i --production --no-save @sap/cds-dk @sap/mdk-tools"
         - bash -c "export PATH=$PATH:$(pwd)/node_modules/.bin"
         - cds build --production
   after-all:
@@ -36,11 +35,11 @@ modules:
         - bash -c "cd Web/MDKModule && rm -rf .npmrc && npm install"
         - bash -c "cd Web/MDKModule && npm run build"
         - >-
-          bash -c "mv Web/MDKModule/MDKModule-content.zip
-          ../../build/dist/CapexRequests.zip"
+          bash -c "mv Web/MDKModule/MDKModule-content.zip ../../build/dist/CapexRequests.zip"
         - rm -rf Web/MDKModule/dist
       _artifactName: CapexRequests.zip
-      supported-platforms: []
+      supported-platforms:
+        []
       build-result: ../../build/dist
   - name: capex-db-deployer
     type: hdb
@@ -55,6 +54,7 @@ modules:
     requires:
       - name: capex-service-uaa
       - name: capex-service-db
+      - name: capex-db
   - name: capex-srv
     type: nodejs
     path: gen/srv
@@ -76,6 +76,7 @@ modules:
       - name: capex-service-metadata
       - name: capex-service-connectivity
       - name: capex-service-logs
+      - name: capex-db
   - name: capex-aux-destinations
     type: com.sap.application.content
     parameters:
@@ -141,12 +142,12 @@ modules:
       commands:
         - npm install
         - >-
-          npx -p @ui5/cli@^3.0.0 ui5 build --dest dist
-          --include-task=generateCachebusterInfo
+          npx -p @ui5/cli@^3.0.0 ui5 build --dest dist --include-task=generateCachebusterInfo
         - bash -c "cd dist && npx bestzip ../../../build/dist/launchpad.zip *"
         - rm -rf dist
       _artifactName: launchpad.zip
-      supported-platforms: []
+      supported-platforms:
+        []
       build-result: ../../build/dist
   - name: capex-aux-ui-deployer
     type: com.sap.application.content
@@ -188,6 +189,7 @@ resources:
             name: capex-CapexWrite-${space}
             role-template-references:
               - $XSAPPNAME.CapexWrite
+        tenant-mode: dedicated
   - type: org.cloudfoundry.managed-service
     name: capex-service-db
     parameters:
@@ -235,3 +237,8 @@ resources:
       service: html5-apps-repo
       service-plan: app-host
       service-name: capex-html5-apps-repo-host
+  - name: capex-db
+    type: com.sap.xs.hdi-container
+    parameters:
+      service: hana
+      service-plan: hdi-shared
