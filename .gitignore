@@ -29,3 +29,6 @@ app/**/dist-zip/
 build/
 gen/
 mta_archives
+
+# added by cds
+.cdsrc-private.json
