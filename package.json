@@ -1,0 +1,47 @@
+{
+	"name": "capex",
+	"version": "1.0.0",
+	"description": "CAPEX Sample application",
+	"repository": "https://github.com/SAP-samples/btp-lcnc-capex",
+	"engines": {
+		"node": "^20"
+	},
+	"dependencies": {
+		"@sap/cds": "^8",
+		"@sap/mdk-tools": "^1.7.3",
+		"@sap/xsenv": "^5",
+		"@sap/xssec": "^4",
+		"axios": "^1.7.2",
+		"express": "^4.19.2",
+		"hdb": "^0.19.7",
+		"passport": "^0.7.0",
+		"qs": "^6.10.3"
+	},
+	"scripts": {
+		"start": "cds-serve"
+	},
+	"cds": {
+		"requires": {
+			"db": {
+				"kind": "sql"
+			},
+			"auth": {
+				"[development]": {
+					"kind": "dummy"
+				},
+				"[production]": {
+					"kind": "xsuaa"
+				}
+			}
+		},
+		"hana": {
+			"deploy-format": "hdbtable"
+		}
+	},
+	"devDependencies": {
+		"sqlite3": "^5.0.2",
+		"@sap/cds-dk": "^8",
+		"@sap/dev-cap-tools": "^1.31.0"
+	},
+	"lcap": true
+}
