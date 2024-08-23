@@ -13,12 +13,14 @@
 		"@sap/xssec": "^4",
 		"axios": "^1.7.2",
 		"express": "^4.19.2",
-		"hdb": "^0.19.7",
 		"passport": "^0.7.0",
-		"qs": "^6.10.3"
+		"qs": "^6.10.3",
+		"@cap-js/postgres": "^1"
 	},
 	"scripts": {
-		"start": "cds-serve"
+		"start": "cds-run",
+		"build": "cds build --profile pg",
+		"watch": "cds watch --profile pg"
 	},
 	"cds": {
 		"requires": {
@@ -39,9 +41,12 @@
 		}
 	},
 	"devDependencies": {
-		"sqlite3": "^5.0.2",
-		"@sap/cds-dk": "^8",
-		"@sap/dev-cap-tools": "^1.31.0"
+		"@cap-js/postgres": "^1.10.0",
+		"@sap/dev-cap-tools": "^1.31.0",
+		"@cap-js/cds-typer": ">=0.1"
 	},
-	"lcap": true
+	"lcap": true,
+	"imports": {
+		"#cds-models/*": "./@cds-models/*/index.js"
+	}
 }

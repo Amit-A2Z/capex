@@ -29,3 +29,7 @@ app/**/dist-zip/
 build/
 gen/
 mta_archives
+
+# auto generated wildcard
+.env
+@cds-models

@@ -12,5 +12,17 @@
         "*.rule": "default",
         "*.properties": "default",
         "*.fragment": "default"
-    }
+    },
+    "sqltools.connections": [
+        {
+            "previewLimit": 50,
+            "server": "postgres-357c1d3e-d544-4048-b296-8c5bbad9ed32.cqryblsdrbcs.us-east-1.rds.amazonaws.com",
+            "port": 6005,
+            "driver": "PostgreSQL",
+            "name": "postgresql",
+            "database": "GyccStBURPsd",
+            "username": "cc30d98f365b",
+            "password": "7aa097104c34e83208c33eee16a"
+        }
+    ]
 }
